@@ -192,6 +192,68 @@ public class noticeindetail extends AppCompatActivity {
         reject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                userref.addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(DataSnapshot dataSnapshot, String s)
+                    {
+
+
+                        nticegetter nticegetteryo=dataSnapshot.getValue(nticegetter.class);
+
+                        try {
+                            String UUniqueIdneweverytime=nticegetteryo.getUniqueId();
+                            Log.i("UUniqueis ","is "+UUniqueIdneweverytime);
+                            Log.i("UUniqueis ","is "+UniqueId);
+
+
+                            if (UUniqueIdneweverytime.equals(UniqueId))
+                            {
+                                int o=0;
+                                Log.i("HOWMANY","is "+o++);
+                                Log.i("approvedor","not is "+UUniqueIdneweverytime);
+                                DataSnapshot nodeDataSnapshot = dataSnapshot.getChildren().iterator().next();
+                                String key = nodeDataSnapshot.getKey(); // this key is `K1NRz9l5PU_0CFDtgXz`
+                                String path = "/" + dataSnapshot.getKey() + "/" + "approvedornot";
+                                String needtoupdatelike = userref.child(path).getKey();
+
+
+
+                                userref.child(path).setValue("Reject");
+                                Toast.makeText(noticeindetail.this, "DONE", Toast.LENGTH_SHORT).show();
+                                approvedtrigger.push().setValue(0);
+
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+
+
+
+                    }
+
+                    @Override
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                    }
+
+                    @Override
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                        Toast.makeText(getApplicationContext(),"Error " + databaseError ,Toast.LENGTH_LONG).show();
+
+                    }
+                });
 
             }
         });
@@ -199,6 +261,7 @@ public class noticeindetail extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                Toast.makeText(noticeindetail.this, "Not defined at now", Toast.LENGTH_SHORT).show();
             }
         });
 
