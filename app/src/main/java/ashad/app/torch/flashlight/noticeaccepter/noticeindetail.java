@@ -4,6 +4,7 @@ package ashad.app.torch.flashlight.noticeaccepter;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.support.v4.view.GravityCompat;
@@ -25,6 +26,10 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -152,8 +157,12 @@ public class noticeindetail extends AppCompatActivity {
 
 
                                     userref.child(path).setValue("True");
-                                    Toast.makeText(noticeindetail.this, "DONE", Toast.LENGTH_SHORT).show();
                                     approvedtrigger.push().setValue(0);
+                                    Toast.makeText(noticeindetail.this, "DONE", Toast.LENGTH_LONG).show();
+
+                                    Intent i=new Intent(getApplicationContext(),MainActivity.class);
+                                    startActivity(i);
+                                    finish();
 
                                 }
                             } catch (Exception e) {
@@ -167,16 +176,19 @@ public class noticeindetail extends AppCompatActivity {
 
                     @Override
                     public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                        Toast.makeText(noticeindetail.this, "Data Changed please verify that someone has accepted", Toast.LENGTH_SHORT).show();
 
                     }
 
                     @Override
                     public void onChildRemoved(DataSnapshot dataSnapshot) {
+                        Toast.makeText(noticeindetail.this, "Data Changed please verify that someone has accepted", Toast.LENGTH_SHORT).show();
 
                     }
 
                     @Override
                     public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                        Toast.makeText(noticeindetail.this, "Data Changed please verify that someone has accepted", Toast.LENGTH_SHORT).show();
 
                     }
 
@@ -219,8 +231,13 @@ public class noticeindetail extends AppCompatActivity {
 
 
                                 userref.child(path).setValue("Reject");
-                                Toast.makeText(noticeindetail.this, "DONE", Toast.LENGTH_SHORT).show();
-                                approvedtrigger.push().setValue(0);
+                                        Toast.makeText(noticeindetail.this, "rejected", Toast.LENGTH_SHORT).show();
+
+                                        Intent i=new Intent(getApplicationContext(),MainActivity.class);
+                                        startActivity(i);
+                                        finish();
+
+
 
                             }
                         } catch (Exception e) {
